@@ -16,7 +16,11 @@ Page({
     code: '',
     codeCountdown: 0,
   },
-  onLoad() {
+  onLoad(options) {
+    // 记录好友邀请链接中的 Island号，登录后跳到「添加好友」自动搜索对方
+    if (options && options.invite) {
+      wx.setStorageSync('pendingInvite', options.invite);
+    }
     if (app.globalData.token) {
       wx.reLaunch({ url: '/pages/island/island' });
     }
@@ -134,6 +138,12 @@ Page({
     app.globalData.user = res.user;
     wx.setStorageSync('token', res.token);
     wx.setStorageSync('user', res.user);
+    const invite = wx.getStorageSync('pendingInvite');
+    if (invite) {
+      wx.removeStorageSync('pendingInvite');
+      wx.reLaunch({ url: '/pages/friend/friend?invite=' + invite });
+      return;
+    }
     wx.reLaunch({ url: '/pages/island/island' });
   },
 });

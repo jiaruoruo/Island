@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { toDataURL } from 'qrcode';
 import { getStore } from '../store';
 
 export const userRouter = Router();
@@ -21,6 +22,22 @@ userRouter.put('/me', async (req, res) => {
     return res.json({ user: updated });
   }
   res.json({ user: me });
+});
+
+// 我的二维码（每个账号唯一：内容为该用户的 Island号）
+userRouter.get('/me/qrcode', async (req, res) => {
+  const me = req.user!;
+  try {
+    const dataUrl = await toDataURL('island://uid/' + me.uid, {
+      width: 480,
+      margin: 2,
+      errorCorrectionLevel: 'M',
+      color: { dark: '#4338ca', light: '#ffffff' },
+    });
+    res.json({ uid: me.uid, dataUrl });
+  } catch (e) {
+    res.status(500).json({ error: '二维码生成失败' });
+  }
 });
 
 // 搜索用户（小岛号 / 手机号）

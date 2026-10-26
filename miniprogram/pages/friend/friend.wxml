@@ -169,4 +169,33 @@
       </view>
     </view>
   </view>
+
+  <!-- 我的二维码弹窗（名片卡风格） -->
+  <view class="qr-mask" wx:if="{{showQr}}" catchtap="closeQr">
+    <view class="qr-sheet" catchtap="noop">
+      <view class="qr-brand">I S L A N D</view>
+      <view class="qr-head">
+        <view class="qr-avatar">
+          <octopus size="96" color="#FF7E9D"></octopus>
+        </view>
+        <view class="qr-user">
+          <view class="qr-name">{{me.nickname}}</view>
+          <view class="qr-uid">Island号: {{me.uid}}</view>
+        </view>
+        <view class="qr-close" catchtap="closeQr">×</view>
+      </view>
+
+      <view class="qr-frame">
+        <view class="qr-corner tl"></view>
+        <view class="qr-corner tr"></view>
+        <view class="qr-corner bl"></view>
+        <view class="qr-corner br"></view>
+        <image class="qr-img" src="{{qrImage}}" mode="aspectFit" show-menu-by-longpress="{{true}}"></image>
+      </view>
+
+      <view class="qr-tip">微信扫码也能加</view>
+    </view>
+
+    <view class="qr-save" catchtap="saveQr">🖼️ 存图发给朋友</view>
+  </view>
 </view>
