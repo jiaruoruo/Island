@@ -326,7 +326,7 @@
   border: 2rpx solid #3b82f6;
   border-radius: 24rpx;
   background: #eaf3ff;
-  color: #2b6ed8;
+  color: #1d4ed8;
   font-size: 28rpx;
   font-weight: 600;
   text-align: center;
@@ -515,7 +515,7 @@
   font-size: 52rpx;
   margin-bottom: 14rpx;
 }
-/* 微信图标（绿底双气泡） */
+/* 微信图标（绿底双气泡 + 眼睛） */
 .wx-icon {
   position: relative;
   width: 52rpx;
@@ -527,20 +527,24 @@
 .wx-icon::after {
   content: '';
   position: absolute;
-  background: #fff;
-  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 50%, #07c160 0 2rpx, transparent 3rpx),
+    radial-gradient(circle at 66% 50%, #07c160 0 2rpx, transparent 3rpx),
+    #fff;
 }
 .wx-icon::before {
   left: 8rpx;
   top: 9rpx;
   width: 24rpx;
   height: 20rpx;
+  border-radius: 6rpx 6rpx 6rpx 2rpx;
 }
 .wx-icon::after {
   right: 8rpx;
   bottom: 9rpx;
   width: 22rpx;
   height: 18rpx;
+  border-radius: 6rpx 6rpx 2rpx 6rpx;
 }
 .g-arrow {
   position: absolute;

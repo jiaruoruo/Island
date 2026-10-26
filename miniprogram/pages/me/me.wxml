@@ -1,0 +1,33 @@
+<view class="page bg-gradient">
+  <view class="profile-card" wx:if="{{me}}">
+    <octopus size="140" color="#FF7E9D"></octopus>
+    <view class="p-name">{{me.nickname}}</view>
+    <view class="p-uid">Island号 {{me.uid}}</view>
+    <view class="edit-btn" bindtap="openEdit">✏️ 编辑资料</view>
+  </view>
+
+  <view class="card stats" wx:if="{{me}}">
+    <view class="stat">
+      <view class="stat-num">{{friendCount}}</view>
+      <view class="stat-label">好友</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat">
+      <view class="stat-num">{{islandCount}}</view>
+      <view class="stat-label">小岛</view>
+    </view>
+  </view>
+
+  <button class="btn btn-logout" bindtap="logout">退出登录</button>
+
+  <view class="modal-mask" wx:if="{{showEdit}}" catchtap="cancelEdit">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">编辑资料</view>
+      <input class="modal-input" placeholder="请输入昵称" value="{{editNickname}}" bindinput="onEditNick" maxlength="20" />
+      <view class="modal-actions">
+        <view class="modal-btn cancel" catchtap="cancelEdit">取消</view>
+        <view class="modal-btn ok" catchtap="saveEdit">保存</view>
+      </view>
+    </view>
+  </view>
+</view>

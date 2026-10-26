@@ -6,6 +6,7 @@
     "pages/memory/memory",
     "pages/task/task",
     "pages/friend/friend",
+    "pages/me/me",
     "pages/quiz/quiz",
     "pages/game/game",
     "pages/closet/closet",

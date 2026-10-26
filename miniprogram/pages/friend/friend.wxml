@@ -90,7 +90,7 @@
 
     <!-- 我的名片 -->
     <view class="card me-card" wx:if="{{me}}">
-      <view class="u-avatar big">🐙</view>
+      <view class="u-avatar big" bindtap="goProfile">🐙</view>
       <view class="u-info">
         <view class="u-name">{{me.nickname}}</view>
         <view class="muted">Island号 {{me.uid}}</view>

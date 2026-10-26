@@ -57,6 +57,9 @@ Page({
       /* ignore */
     }
   },
+  goProfile() {
+    wx.navigateTo({ url: '/pages/me/me' });
+  },
   openEdit() {
     this.setData({
       showEdit: true,
