@@ -1,6 +1,12 @@
 App({
   globalData: {
-    // 默认值（本地开发者工具）。运行时按环境自动覆盖，无需手动改这里。
+    // ===== 微信云托管配置 =====
+    cloudEnv: '', // ← 填云托管环境 ID（如 island-1a2b3c）；留空则不走云托管
+    serviceName: 'island-server', // ← 云托管服务名
+    forceCloud: false, // 设为 true 可强制所有环境（含真机调试）走云托管
+    useCloud: false, // 运行时自动判定
+
+    // 本地 / 自托管地址（develop 环境或不走云托管时使用）
     baseUrl: 'http://localhost:3000',
     wsBase: 'ws://localhost:3000',
     token: '',
@@ -8,20 +14,23 @@ App({
     currentCouple: null,
   },
   onLaunch() {
-    // 按运行环境自动切换后端地址：
-    //   develop  → 开发者工具 / 真机调试：用局域网地址（改下面的 LAN_BASE）
-    //   trial    → 体验版：用线上 HTTPS 域名（改下面的 PROD_BASE）
-    //   release  → 正式版：同上
     try {
       const env = wx.getAccountInfoSync().miniProgram.envVersion;
-      const LAN_BASE = 'http://192.168.1.x:3000';     // ← 改成你电脑的局域网 IP
-      const PROD_BASE = 'https://api.yourdomain.com';  // ← 改成你的线上域名
+      const LAN_BASE = 'http://192.168.1.x:3000'; // ← 你电脑的局域网 IP
+      const PROD_BASE = 'https://api.yourdomain.com'; // ← 自托管域名（不用云托管时）
       if (env === 'develop') {
         this.globalData.baseUrl = LAN_BASE;
         this.globalData.wsBase = LAN_BASE.replace(/^http/, 'ws');
       } else {
         this.globalData.baseUrl = PROD_BASE;
         this.globalData.wsBase = PROD_BASE.replace(/^https/, 'wss');
+      }
+      // 体验版/正式版走云托管（免域名、免备案）；真机调试可用 forceCloud 强制
+      if (this.globalData.cloudEnv && (env !== 'develop' || this.globalData.forceCloud)) {
+        this.globalData.useCloud = true;
+      }
+      if (this.globalData.cloudEnv && wx.cloud) {
+        wx.cloud.init({ env: this.globalData.cloudEnv, traceUser: true });
       }
     } catch (e) {
       // 取不到环境信息时保持默认值
