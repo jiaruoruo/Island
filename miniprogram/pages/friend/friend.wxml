@@ -8,29 +8,72 @@
   <block wx:if="{{view === 'add'}}">
     <!-- 插画：两座小岛 + 中间海水动画 -->
     <view class="hero">
-      <view class="isle">
-        <octopus size="100" color="#FF7E9D"></octopus>
-        <text class="h-island">🏝️</text>
-      </view>
-
       <view class="sea">
-        <view class="wave w1"></view>
-        <view class="wave w2"></view>
-        <view class="wave w3"></view>
+        <view class="sea-line l1"></view>
+        <view class="sea-line l2"></view>
         <view class="ripple r1"></view>
         <view class="ripple r2"></view>
         <view class="ripple r3"></view>
-        <text class="h-icon">🔭</text>
+        <text class="fish fish1">🐟</text>
+        <text class="fish fish2">🐠</text>
+      </view>
+
+      <view class="isle">
+        <view class="scene">
+          <view class="island"></view>
+          <view class="palm">
+            <view class="trunk"></view>
+            <view class="coconut c1"></view>
+            <view class="coconut c2"></view>
+            <view class="coconut c3"></view>
+            <view class="coconut c4"></view>
+            <view class="coconut c5"></view>
+            <view class="crown">
+              <view class="frond f1"></view>
+              <view class="frond f2"></view>
+              <view class="frond f3"></view>
+              <view class="frond f4"></view>
+              <view class="frond f5"></view>
+              <view class="frond f6"></view>
+            </view>
+          </view>
+          <view class="octo-wrap">
+            <octopus size="90" color="#FF7E9D"></octopus>
+            <text class="telescope telescope-l">🔭</text>
+          </view>
+        </view>
       </view>
 
       <view class="isle isle-right">
-        <octopus size="100" color="#4FD1C5"></octopus>
-        <text class="h-island">🏝️</text>
+        <view class="scene">
+          <view class="island"></view>
+          <view class="palm">
+            <view class="trunk"></view>
+            <view class="coconut c1"></view>
+            <view class="coconut c2"></view>
+            <view class="coconut c3"></view>
+            <view class="coconut c4"></view>
+            <view class="coconut c5"></view>
+            <view class="crown">
+              <view class="frond f1"></view>
+              <view class="frond f2"></view>
+              <view class="frond f3"></view>
+              <view class="frond f4"></view>
+              <view class="frond f5"></view>
+              <view class="frond f6"></view>
+            </view>
+          </view>
+          <view class="octo-wrap">
+            <octopus size="90" color="#4FD1C5"></octopus>
+            <text class="telescope telescope-r">🔭</text>
+          </view>
+        </view>
       </view>
     </view>
 
     <!-- 搜索 -->
     <view class="search-card">
+      <text class="search-icon">🔍</text>
       <input class="search-input" placeholder="搜索 Island号或手机号" value="{{q}}" bindinput="onQ" confirm-type="search" bindconfirm="search" />
       <view class="search-btn" bindtap="search">搜索</view>
     </view>
@@ -52,31 +95,38 @@
         <view class="u-name">{{me.nickname}}</view>
         <view class="muted">Island号 {{me.uid}}</view>
       </view>
-      <view class="edit-btn" catchtap="openEdit">编辑资料</view>
+      <view class="edit-btn" catchtap="openEdit">✏️ 编辑资料</view>
     </view>
 
     <!-- 四宫格动作（均匀 2×2） -->
     <view class="card grid">
+      <view class="gline gline-h"></view>
+      <view class="gline gline-vt"></view>
+      <view class="gline gline-vb"></view>
       <view class="g">
         <button class="g-share" open-type="share"></button>
-        <view class="g-icon">💬</view>
+        <view class="g-icon wx-icon"></view>
         <view class="g-title">邀请微信好友</view>
         <view class="g-desc">邀请好友加入 Island</view>
+        <text class="g-arrow">›</text>
       </view>
       <view class="g" bindtap="copyLink">
         <view class="g-icon">🔗</view>
         <view class="g-title">复制邀请码</view>
         <view class="g-desc">分享到微信或其他平台</view>
+        <text class="g-arrow">›</text>
       </view>
       <view class="g" bindtap="myQr">
         <view class="g-icon">📱</view>
         <view class="g-title">我的二维码</view>
         <view class="g-desc">让朋友扫码加我</view>
+        <text class="g-arrow">›</text>
       </view>
       <view class="g" bindtap="scan">
         <view class="g-icon">📷</view>
         <view class="g-title">扫一扫</view>
         <view class="g-desc">扫描朋友的 Island号</view>
+        <text class="g-arrow">›</text>
       </view>
     </view>
 
