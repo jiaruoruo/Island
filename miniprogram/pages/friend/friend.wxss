@@ -21,19 +21,90 @@
   border: none;
 }
 
-/* 插画 */
+/* 插画：两座小岛 + 中间海水 */
 .hero {
+  position: relative;
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 30rpx 24rpx 36rpx;
+}
+.isle {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12rpx;
-  padding: 30rpx 0 36rpx;
+  z-index: 2;
+  animation: isle-float 4s ease-in-out infinite;
+}
+.isle-right {
+  animation-delay: 1s;
 }
 .h-island {
   font-size: 56rpx;
+  line-height: 1;
+  margin-top: -18rpx;
 }
 .h-icon {
   font-size: 40rpx;
+}
+/* 海水 */
+.sea {
+  position: relative;
+  flex: 1;
+  height: 150rpx;
+  margin: 0 10rpx 6rpx;
+  border-radius: 28rpx;
+  overflow: hidden;
+  background: linear-gradient(180deg, #8fe0f7 0%, #37b6e0 55%, #1f8fc4 100%);
+  z-index: 1;
+}
+.wave {
+  position: absolute;
+  left: -60%;
+  width: 220%;
+  height: 280rpx;
+  border-radius: 43%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: wave-rotate 9s linear infinite;
+}
+.wave.w1 {
+  top: 36rpx;
+}
+.wave.w2 {
+  top: 54rpx;
+  background: rgba(255, 255, 255, 0.18);
+  animation-duration: 6.5s;
+  animation-direction: reverse;
+}
+.wave.w3 {
+  top: 72rpx;
+  background: rgba(79, 209, 197, 0.38);
+  animation-duration: 13s;
+}
+.sea .h-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 24rpx;
+  text-align: center;
+  z-index: 3;
+}
+@keyframes wave-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes isle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12rpx);
+  }
 }
 
 /* 搜索 */

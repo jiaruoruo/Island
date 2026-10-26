@@ -6,13 +6,24 @@
   </view>
 
   <block wx:if="{{view === 'add'}}">
-    <!-- 插画 -->
+    <!-- 插画：两座小岛 + 中间海水动画 -->
     <view class="hero">
-      <text class="h-island">🏝️</text>
-      <octopus size="120" color="#FF7E9D"></octopus>
-      <text class="h-icon">🔭</text>
-      <octopus size="120" color="#4FD1C5"></octopus>
-      <text class="h-island">🏝️</text>
+      <view class="isle">
+        <octopus size="100" color="#FF7E9D"></octopus>
+        <text class="h-island">🏝️</text>
+      </view>
+
+      <view class="sea">
+        <view class="wave w1"></view>
+        <view class="wave w2"></view>
+        <view class="wave w3"></view>
+        <text class="h-icon">🔭</text>
+      </view>
+
+      <view class="isle isle-right">
+        <octopus size="100" color="#4FD1C5"></octopus>
+        <text class="h-island">🏝️</text>
+      </view>
     </view>
 
     <!-- 搜索 -->
