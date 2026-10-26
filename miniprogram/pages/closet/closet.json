@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "小章鱼换装",
+  "usingComponents": {
+    "octopus": "/components/octopus/octopus"
+  }
+}

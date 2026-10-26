@@ -1,0 +1,42 @@
+.top {
+  padding: 16rpx 0 24rpx;
+}
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0;
+}
+.swatches {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 20rpx;
+}
+.swatch {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  border: 4rpx solid transparent;
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+.swatch.active {
+  border-color: #fff;
+  box-shadow: 0 0 0 6rpx rgba(155, 140, 255, 0.4);
+}
+.accs {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+.acc {
+  padding: 14rpx 30rpx;
+  border-radius: 999rpx;
+  background: #f6f4ff;
+  color: #8a8597;
+  font-size: 26rpx;
+}
+.acc.active {
+  background: linear-gradient(135deg, #ff7e9d, #9b8cff);
+  color: #fff;
+  font-weight: 600;
+}

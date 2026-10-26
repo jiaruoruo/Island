@@ -1,0 +1,130 @@
+.island-page {
+  padding-bottom: 200rpx;
+}
+
+/* 顶部栏（沉浸式：标题 + 快捷操作） */
+.topbar {
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  padding-bottom: 20rpx;
+}
+.topbar-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #2d2a3a;
+  padding: 12rpx 0 16rpx;
+}
+.topbar-actions {
+  display: flex;
+  gap: 16rpx;
+}
+.topbar-actions .pill {
+  flex: 1;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.pill {
+  padding: 12rpx 26rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.9);
+  color: #5a4d9b;
+  font-size: 28rpx;
+  font-weight: 500;
+  letter-spacing: 2rpx;
+  border: 2rpx solid #e6e0ff;
+}
+.pill:active {
+  transform: scale(0.96);
+}
+.pill-primary {
+  background: linear-gradient(135deg, #ff7e9d, #9b8cff);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 8rpx 20rpx rgba(255, 126, 157, 0.3);
+}
+
+.center {
+  text-align: center;
+  padding: 80rpx 0;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+}
+.couple-card {
+  display: flex;
+  align-items: center;
+}
+.island-icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  color: #fff;
+}
+.island-info {
+  flex: 1;
+  margin-left: 24rpx;
+}
+.arrow {
+  font-size: 48rpx;
+  color: #c8c2e0;
+}
+.logout {
+  text-align: center;
+  margin-top: 40rpx;
+  padding: 20rpx;
+  color: #b0a9c8;
+  font-size: 26rpx;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(45, 42, 58, 0.4);
+  z-index: 100;
+}
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 40rpx 40rpx 0 0;
+  padding: 40rpx 32rpx 60rpx;
+  z-index: 101;
+}
+.input {
+  margin-top: 24rpx;
+  background: #f6f4ff;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+}
+.persona-row {
+  display: flex;
+  gap: 20rpx;
+  margin: 20rpx 0 32rpx;
+}
+.persona {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 20rpx;
+  border: 3rpx solid;
+  color: #8a8597;
+}
+.persona.active {
+  color: #fff;
+  font-weight: 600;
+}

@@ -1,0 +1,56 @@
+<view class="page bg-gradient island-page">
+  <!-- 顶部栏：标题 + 快捷操作（参考 消息/全部已读/加好友 布局） -->
+  <view class="topbar" style="padding-top:{{statusBarHeight}}px;">
+    <view class="topbar-title">小岛</view>
+    <view class="topbar-actions">
+      <view class="pill" bindtap="openJoin">🔑 邀请码</view>
+      <view class="pill" bindtap="openCreate">✨ 新建</view>
+      <view class="pill pill-primary" bindtap="addFriend">＋ 加好友</view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="muted center">加载中…</view>
+
+  <view wx:if="{{couples.length === 0 && !loading}}" class="empty">
+    <view class="float">
+      <octopus size="220" color="#9B8CFF"></octopus>
+    </view>
+    <view class="muted">还没有小岛，快和 TA 建一个吧</view>
+  </view>
+
+  <view wx:for="{{couples}}" wx:key="id" class="card couple-card" data-id="{{item.id}}" bindtap="enter">
+    <view class="island-icon" style="background:{{item.persona === 'sweet' ? '#FF7E9D' : item.persona === 'sassy' ? '#9B8CFF' : '#4FD1C5'}};">🐙</view>
+    <view class="island-info">
+      <view class="subtitle">{{item.name}}</view>
+      <view class="muted">性格：{{item.persona === 'sweet' ? '甜妹' : item.persona === 'sassy' ? '毒舌' : '靠谱'}} · {{item.memberB ? '双人已登岛' : '等待 TA 加入'}}</view>
+    </view>
+    <view class="arrow">›</view>
+  </view>
+
+  <view class="logout" bindtap="logout">返回登录界面</view>
+
+  <!-- 底部导航（参考 消息/码头/任务/我的） -->
+  <tabbar active="island" bind:change="onTabChange"></tabbar>
+
+  <!-- 建岛弹窗 -->
+  <view class="mask" wx:if="{{showCreate}}" bindtap="closeCreate"></view>
+  <view class="sheet" wx:if="{{showCreate}}">
+    <view class="subtitle">新建小岛</view>
+    <input class="input" placeholder="给小岛起个名字" value="{{name}}" bindinput="onName" />
+    <view class="subtitle" style="margin-top:24rpx;">选择小章鱼性格</view>
+    <view class="persona-row">
+      <view wx:for="{{PERSONA}}" wx:key="key" class="persona {{persona === item.key ? 'active' : ''}}" data-p="{{item.key}}" bindtap="choosePersona" style="border-color:{{item.color}};">
+        {{item.label}}
+      </view>
+    </view>
+    <button class="btn" bindtap="create">创建</button>
+  </view>
+
+  <!-- 加入弹窗 -->
+  <view class="mask" wx:if="{{showJoin}}" bindtap="closeJoin"></view>
+  <view class="sheet" wx:if="{{showJoin}}">
+    <view class="subtitle">输入邀请码加入小岛</view>
+    <input class="input" type="number" placeholder="输入 TA 的 8 位邀请码" value="{{inviteCode}}" bindinput="onInvite" maxlength="8" />
+    <button class="btn" bindtap="join">登岛</button>
+  </view>
+</view>

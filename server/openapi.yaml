@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: 小岛（Twoo 同类 App）后端 API
+  version: 0.1.0
+  description: 双人 + AI 第三成员 微信小程序 MVP 接口契约。除登录外均需鉴权头。
+servers:
+  - url: http://localhost:3000/api
+
+security:
+  - bearerAuth: []
+
+paths:
+  /auth/login:
+    post:
+      security: []
+      summary: 登录（Mock / 微信）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code: { type: string, description: 微信临时 code，Mock 下任意 }
+                nickname: { type: string }
+                adult: { type: boolean, description: 是否成年，决定是否进入未成年人模式 }
+      responses:
+        '200':
+          description: 返回 token 与用户
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: { type: string }
+                  user: { $ref: '#/components/schemas/User' }
+
+  /couples:
+    post:
+      summary: 建岛
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                persona: { type: string, enum: [sweet, sassy, reliable] }
+      responses:
+        '200':
+          description: 返回小岛与邀请码
+    get:
+      summary: 我的小岛列表
+
+  /couples/{id}:
+    get:
+      summary: 小岛详情
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+    post:
+      summary: 受邀加入小岛
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+
+  /chat/{coupleId}/messages:
+    get:
+      summary: 历史消息
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+    post:
+      summary: 发送消息并触发 AI 小章鱼
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { text: { type: string } }, required: [text] }
+      responses:
+        '200':
+          description: 返回用户消息、小章鱼回复与记忆写入
+
+  /memory/{coupleId}:
+    get:
+      summary: 共享记忆列表
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+    post:
+      summary: 手动新增记忆
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type: { type: string, enum: [anniversary, wish, promise, preference, note] }
+                value: { type: string }
+
+  /memory/{coupleId}/search:
+    post:
+      summary: 语义检索记忆
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { query: { type: string } } }
+
+  /memory/{coupleId}/{memoryId}:
+    delete:
+      summary: 删除记忆（双人确认）
+      parameters:
+        - $ref: '#/components/parameters/coupleId'
+        - $ref: '#/components/parameters/memoryId'
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { both: { type: boolean } } }
+
+  /quiz/{coupleId}:
+    post:
+      summary: 发起关系评测
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type: { type: string, enum: [compatibility, sweetness, personality] }
+
+  /quiz/{coupleId}/{quizId}/answer:
+    post:
+      summary: 提交答题
+      parameters:
+        - $ref: '#/components/parameters/coupleId'
+        - $ref: '#/components/parameters/quizId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers: { type: object, additionalProperties: { type: string } }
+
+  /quiz/{coupleId}/{quizId}/report:
+    get:
+      summary: 生成评测报告
+      parameters:
+        - $ref: '#/components/parameters/coupleId'
+        - $ref: '#/components/parameters/quizId'
+
+  /game/{coupleId}/topic:
+    post:
+      summary: 话题盲盒
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+  /game/{coupleId}/truth:
+    post:
+      summary: 真心话大冒险
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+
+  /planner/{coupleId}/plan:
+    post:
+      summary: 约会攻略 / 餐厅推荐
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city: { type: string }
+                preference: { type: string }
+                budget: { type: string }
+
+  /subscription/{coupleId}:
+    get:
+      summary: 查询会员
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+  /subscription/{coupleId}/subscribe:
+    post:
+      summary: 订阅 / 内购（Mock）
+      parameters: [{ $ref: '#/components/parameters/coupleId' }]
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { plan: { type: string, enum: [free, plus] } } }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+  parameters:
+    coupleId:
+      name: coupleId
+      in: path
+      required: true
+      schema: { type: string }
+    memoryId:
+      name: memoryId
+      in: path
+      required: true
+      schema: { type: string }
+    quizId:
+      name: quizId
+      in: path
+      required: true
+      schema: { type: string }
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id: { type: string }
+        openid: { type: string }
+        nickname: { type: string }
+        adult: { type: boolean }
+        minorMode: { type: boolean }

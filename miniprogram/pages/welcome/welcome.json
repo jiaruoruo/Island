@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "欢迎登岛",
+  "usingComponents": {
+    "octopus": "/components/octopus/octopus"
+  }
+}

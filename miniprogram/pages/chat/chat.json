@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "三人小群",
+  "usingComponents": {
+    "octopus": "/components/octopus/octopus",
+    "bubble": "/components/bubble/bubble"
+  }
+}

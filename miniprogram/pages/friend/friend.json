@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加好友",
+  "usingComponents": {
+    "octopus": "/components/octopus/octopus"
+  }
+}

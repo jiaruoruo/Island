@@ -1,0 +1,32 @@
+<view class="page bg-gradient">
+  <view class="top">
+    <view class="title">互动游戏</view>
+    <view class="muted">异地宅家都不无聊，感情越玩越升温</view>
+  </view>
+
+  <view class="game-grid">
+    <view class="card game-card" data-kind="topic" bindtap="draw">
+      <view class="game-icon">🎁</view>
+      <view class="subtitle">话题盲盒</view>
+      <view class="muted">抽一个话题，和 TA 聊起来</view>
+    </view>
+    <view class="card game-card" data-kind="truth" bindtap="draw">
+      <view class="game-icon">🎲</view>
+      <view class="subtitle">真心话大冒险</view>
+      <view class="muted">敢不敢？抽一张看看</view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="muted center">抽取中…</view>
+
+  <view wx:if="{{result}}" class="card result pop">
+    <view wx:if="{{result.topic}}" class="result-content">
+      <view class="chip">话题盲盒</view>
+      <view class="result-text">{{result.topic}}</view>
+    </view>
+    <view wx:else class="result-content">
+      <view class="chip" style="background:#ff950022;color:#ff9500;">{{result.type}}</view>
+      <view class="result-text">{{result.content}}</view>
+    </view>
+  </view>
+</view>

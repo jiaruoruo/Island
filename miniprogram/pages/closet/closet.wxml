@@ -1,0 +1,28 @@
+<view class="page bg-gradient">
+  <view class="top">
+    <view class="title">小章鱼换装</view>
+    <view class="muted">给它换个颜色，戴上小配饰</view>
+  </view>
+
+  <view class="preview card">
+    <view class="float">
+      <octopus size="280" color="{{color}}" accessory="{{accessory}}"></octopus>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">身体颜色</view>
+    <view class="swatches">
+      <view wx:for="{{COLORS}}" wx:key="*this" class="swatch {{color === item ? 'active' : ''}}" style="background:{{item}};" data-c="{{item}}" bindtap="chooseColor"></view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">配饰</view>
+    <view class="accs">
+      <view wx:for="{{ACCS}}" wx:key="key" class="acc {{accessory === item.key ? 'active' : ''}}" data-a="{{item.key}}" bindtap="chooseAcc">{{item.label}}</view>
+    </view>
+  </view>
+
+  <button class="btn" bindtap="save">保存装扮</button>
+</view>

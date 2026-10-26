@@ -1,0 +1,33 @@
+<view class="chat-page bg-gradient">
+  <!-- 顶部小章鱼状态栏 -->
+  <view class="status-bar card" wx:if="{{couple}}">
+    <view class="mini-octo float">
+      <octopus size="96" color="{{couple.persona === 'sweet' ? '#FF7E9D' : couple.persona === 'sassy' ? '#9B8CFF' : '#4FD1C5'}}"></octopus>
+    </view>
+    <view class="status-info">
+      <view class="subtitle">{{couple.name}}</view>
+      <view class="muted">小章鱼 · {{PERSONA_LABEL[couple.persona]}}模式 · {{socketOpen ? '在线' : '连接中'}}</view>
+    </view>
+  </view>
+
+  <!-- 消息流 -->
+  <scroll-view class="msg-scroll" scroll-y scroll-into-view="{{lastId}}" scroll-with-animation>
+    <view wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <bubble role="{{item.role}}" text="{{item.text}}"></bubble>
+    </view>
+    <view class="spacer"></view>
+  </scroll-view>
+
+  <!-- 快捷玩法 -->
+  <scroll-view class="actions-bar" scroll-x>
+    <view wx:for="{{ACTIONS}}" wx:key="key" class="act" data-page="{{item.page}}" bindtap="go">
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <!-- 输入区 -->
+  <view class="input-bar">
+    <input class="input" placeholder="和小章鱼说点什么… 可 @它" value="{{input}}" bindinput="onInput" confirm-type="send" bindconfirm="send" />
+    <button class="send-btn" bindtap="send">发送</button>
+  </view>
+</view>

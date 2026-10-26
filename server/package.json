@@ -1,0 +1,36 @@
+{
+  "name": "twoo-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "双人 + AI 第三成员 微信小程序 MVP 后端",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/core.test.ts",
+    "prisma:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "@types/ws": "^8.5.12",
+    "prisma": "^5.19.0",
+    "@prisma/client": "^5.19.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,41 @@
+.row {
+  display: flex;
+  margin: 16rpx 0;
+}
+.row.userA {
+  justify-content: flex-end;
+}
+.row.userB {
+  justify-content: flex-start;
+}
+.row.octopus {
+  justify-content: center;
+}
+
+.bubble {
+  max-width: 70%;
+  padding: 20rpx 28rpx;
+  border-radius: 28rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+  word-break: break-all;
+  animation: pop 0.3s ease;
+}
+
+.row.userA .bubble {
+  background: linear-gradient(135deg, #ff7e9d, #ff9db4);
+  color: #fff;
+  border-bottom-right-radius: 8rpx;
+}
+.row.userB .bubble {
+  background: linear-gradient(135deg, #4fd1c5, #7de0d7);
+  color: #fff;
+  border-bottom-left-radius: 8rpx;
+}
+.row.octopus .bubble {
+  background: rgba(255, 255, 255, 0.92);
+  color: #5a4d9b;
+  border: 2rpx solid #e6e0ff;
+  box-shadow: 0 8rpx 24rpx rgba(155, 140, 255, 0.12);
+  text-align: center;
+}

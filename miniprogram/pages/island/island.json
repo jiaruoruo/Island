@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "octopus": "/components/octopus/octopus",
+    "tabbar": "/components/tabbar/tabbar"
+  }
+}

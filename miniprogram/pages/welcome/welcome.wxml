@@ -1,0 +1,43 @@
+<view class="page bg-gradient welcome">
+  <view class="hero">
+    <view class="float">
+      <octopus size="230" color="#FF7E9D" accessory="bow"></octopus>
+    </view>
+    <view class="title brand">让一只小章鱼，住进你们之间</view>
+    <view class="muted slogan">2 人 + 1 AI 的私密小岛 · 会接梗、会记事、会破冰</view>
+  </view>
+
+  <!-- 登录方式切换 -->
+  <view class="mode-tabs">
+    <view class="mode {{loginMode === 'wechat' ? 'active' : ''}}" data-mode="wechat" bindtap="switchMode">微信登录</view>
+    <view class="mode {{loginMode === 'phone' ? 'active' : ''}}" data-mode="phone" bindtap="switchMode">手机号登录</view>
+  </view>
+
+  <!-- 微信一键登录 -->
+  <view wx:if="{{loginMode === 'wechat'}}">
+    <button class="btn btn-wechat" bindtap="login" disabled="{{logging}}">{{logging ? '登录中...' : '微信一键登录'}}</button>
+  </view>
+
+  <!-- 手机号验证码登录 -->
+  <view wx:if="{{loginMode === 'phone'}}" class="card phone-card">
+    <view class="field-label">手机号</view>
+    <input class="input" type="number" placeholder="请输入 11 位手机号" placeholder-class="ph" value="{{phone}}" bindinput="onPhone" maxlength="11" />
+    <view class="field-label">验证码</view>
+    <view class="code-row">
+      <input class="input code-input" type="number" placeholder="6 位验证码" placeholder-class="ph" value="{{code}}" bindinput="onCode" maxlength="6" />
+      <button class="code-btn" bindtap="sendCode" disabled="{{codeCountdown > 0}}">{{codeCountdown > 0 ? codeCountdown + 's 后重发' : '获取验证码'}}</button>
+    </view>
+    <view class="dev-hint" wx:if="{{codeCountdown > 0}}">开发模式：验证码已显示在弹窗与后端日志中</view>
+    <button class="btn btn-mint" bindtap="phoneLogin" disabled="{{logging}}">{{logging ? '登录中...' : '登录并登岛'}}</button>
+  </view>
+
+  <!-- 隐私协议（登录下方） -->
+  <view class="agree-card">
+    <checkbox-group bindchange="onAgree">
+      <label class="agree">
+        <checkbox value="agree" checked="{{agreed}}" color="#9B8CFF" />
+        <text class="muted">我已阅读并同意《隐私与数据共享说明》，允许双人共享记忆。</text>
+      </label>
+    </checkbox-group>
+  </view>
+</view>

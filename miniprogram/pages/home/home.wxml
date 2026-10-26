@@ -1,0 +1,32 @@
+<view class="page bg-gradient">
+  <view class="top">
+    <view class="title">小窝装扮</view>
+    <view class="muted">一点点布置，填满属于你们的小屋</view>
+  </view>
+
+  <view class="scene" style="background:{{currentCss}};">
+    <view class="decor-grid">
+      <view wx:for="{{decor}}" wx:key="*this" class="decor-item">{{item}}</view>
+    </view>
+    <view class="floor"></view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">房间主题</view>
+    <view class="scenes">
+      <view wx:for="{{scenes}}" wx:key="key" class="scene-opt {{scene === item.key ? 'active' : ''}}" data-s="{{item.key}}" bindtap="chooseScene">
+        <view class="scene-swatch" style="background:{{item.css}};"></view>
+        <view class="muted">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">摆件（点击添加/移除）</view>
+    <view class="decor-opts">
+      <view wx:for="{{DECOR}}" wx:key="*this" class="decor-opt {{decor.indexOf(item) >= 0 ? 'active' : ''}}" data-d="{{item}}" bindtap="toggleDecor">{{item}}</view>
+    </view>
+  </view>
+
+  <button class="btn" bindtap="save">保存布置</button>
+</view>

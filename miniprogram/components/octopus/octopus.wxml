@@ -1,0 +1,23 @@
+<view class="octo" style="width:{{size}}rpx;height:{{size}}rpx;">
+  <!-- 配饰 -->
+  <view class="acc bow" wx:if="{{accessory === 'bow'}}"></view>
+  <view class="acc hat" wx:elif="{{accessory === 'hat'}}"></view>
+  <view class="acc crown" wx:elif="{{accessory === 'crown'}}"></view>
+
+  <!-- 头 -->
+  <view class="head" style="background:{{color}};">
+    <view class="blush blush-l"></view>
+    <view class="blush blush-r"></view>
+    <view class="eye eye-l"></view>
+    <view class="eye eye-r"></view>
+    <view class="mouth"></view>
+  </view>
+
+  <!-- 触手 -->
+  <view class="tentacles">
+    <view class="tent t1" style="background:{{color}};"></view>
+    <view class="tent t2" style="background:{{color}};"></view>
+    <view class="tent t3" style="background:{{color}};"></view>
+    <view class="tent t4" style="background:{{color}};"></view>
+  </view>
+</view>

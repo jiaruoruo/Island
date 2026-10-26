@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  openid    String   @unique
+  uid       String   @unique // 小岛号
+  nickname  String
+  adult     Boolean  @default(true)
+  minorMode Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model FriendRequest {
+  id         String   @id @default(cuid())
+  fromUserId String
+  toUserId   String
+  status     String   @default("pending") // pending | accepted | rejected
+  createdAt  DateTime @default(now())
+
+  @@index([toUserId, status])
+  @@index([fromUserId])
+}
+
+model Friend {
+  id        String   @id @default(cuid())
+  userId    String
+  friendId  String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Couple {
+  id         String   @id @default(cuid())
+  name       String
+  memberA    String
+  memberB    String?
+  persona    String   @default("sweet") // sweet | sassy | reliable
+  inviteCode String   @unique // 8 位数字邀请码
+  createdAt  DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  coupleId  String
+  role      String // userA | userB | octopus
+  text      String
+  createdAt DateTime @default(now())
+
+  @@index([coupleId, createdAt])
+}
+
+model Memory {
+  id          String   @id @default(cuid())
+  coupleId    String
+  type        String // anniversary | wish | promise | preference | note
+  value       String
+  embedding   Json?
+  confirmedBy String[]
+  createdAt   DateTime @default(now())
+
+  @@index([coupleId])
+}
+
+model Reminder {
+  id        String   @id @default(cuid())
+  coupleId  String
+  memoryId  String
+  triggerAt DateTime
+  triggered Boolean  @default(false)
+
+  @@index([triggerAt])
+}
+
+model QuizSession {
+  id        String   @id @default(cuid())
+  coupleId  String
+  type      String // compatibility | sweetness | personality
+  status    String   @default("open") // open | done
+  answers   Json?
+  report    Json?
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id        String    @id @default(cuid())
+  coupleId  String    @unique
+  plan      String    @default("free") // free | plus
+  expireAt  DateTime?
+  updatedAt DateTime  @updatedAt
+}

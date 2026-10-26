@@ -1,0 +1,24 @@
+<view class="page bg-gradient">
+  <view class="top">
+    <view class="title">小岛会员</view>
+    <view class="muted">双人共享 · 让关系升温的更多玩法</view>
+  </view>
+
+  <view class="card plan-card">
+    <view class="plan-badge">{{plan === 'plus' ? 'PLUS 会员' : '免费版'}}</view>
+    <view wx:if="{{plan !== 'plus'}}" class="price">¥12<span class="muted">/月 · 双人共享</span></view>
+    <view wx:else class="subtitle">已开通 · 有效期 30 天</view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">会员权益</view>
+    <view wx:for="{{BENEFITS}}" wx:key="*this" class="benefit">✓ {{item}}</view>
+  </view>
+
+  <button wx:if="{{plan !== 'plus'}}" class="btn" bindtap="subscribe" disabled="{{subscribing}}">{{subscribing ? '开通中…' : '开通 PLUS（Mock 支付）'}}</button>
+  <button wx:else class="btn btn-mint">会员已生效</button>
+
+  <view class="card note">
+    <view class="muted">合规说明：本产品不向未成年人提供 AI 亲密互动与付费服务；共享记忆需双方授权，可随时解散小岛并删除数据。</view>
+  </view>
+</view>

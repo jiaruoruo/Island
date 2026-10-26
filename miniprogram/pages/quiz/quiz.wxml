@@ -1,0 +1,44 @@
+<view class="page bg-gradient">
+  <view class="top">
+    <view class="title">关系评测</view>
+    <view class="muted">解锁属于你们俩的独家报告</view>
+  </view>
+
+  <!-- 选择类型 -->
+  <view wx:if="{{!quizId}}" class="type-grid">
+    <view wx:for="{{TYPES}}" wx:key="key" class="card type-card" data-type="{{item.key}}" bindtap="start">
+      <view class="type-icon">{{item.icon}}</view>
+      <view class="subtitle">{{item.label}}</view>
+      <view class="muted">看看你们的{{item.label}}有多高</view>
+    </view>
+  </view>
+
+  <!-- 答题 -->
+  <view wx:if="{{quizId && !report}}">
+    <view class="subtitle" style="margin-bottom:24rpx;">{{label}}</view>
+    <view wx:for="{{questions}}" wx:key="index" class="card">
+      <view class="subtitle">{{index + 1}}. {{item.text}}</view>
+      <view class="opts">
+        <view wx:for="{{item.options}}" wx:for-item="opt" wx:key="*this" class="opt {{answers[index] === opt ? 'active' : ''}}" data-qi="{{index}}" data-opt="{{opt}}" bindtap="choose">{{opt}}</view>
+      </view>
+    </view>
+    <button class="btn" bindtap="submit">生成报告</button>
+  </view>
+
+  <!-- 报告 -->
+  <view wx:if="{{report}}" class="pop">
+    <view class="card report-card">
+      <view class="score">{{report.score}}</view>
+      <view class="subtitle center-text">{{report.label}} · 综合分</view>
+      <view class="muted center-text">{{report.comment}}</view>
+      <view wx:for="{{report.dims}}" wx:key="name" class="dim">
+        <view class="dim-name">{{item.name}}</view>
+        <view class="dim-bar">
+          <view class="dim-fill" style="width:{{item.value}}%;"></view>
+        </view>
+        <view class="dim-val">{{item.value}}</view>
+      </view>
+    </view>
+    <button class="btn btn-ghost" bindtap="restart">再来一次</button>
+  </view>
+</view>

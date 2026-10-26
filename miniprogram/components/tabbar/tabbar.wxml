@@ -1,0 +1,13 @@
+<view class="tabbar">
+  <view
+    wx:for="{{tabs}}"
+    wx:key="key"
+    class="tab {{active === item.key ? 'active' : ''}}"
+    data-key="{{item.key}}"
+    bindtap="onTap"
+  >
+    <view class="tab-icon">{{item.icon}}</view>
+    <view class="tab-label">{{item.label}}</view>
+    <view class="tab-dot" wx:if="{{item.key === 'profile'}}"></view>
+  </view>
+</view>

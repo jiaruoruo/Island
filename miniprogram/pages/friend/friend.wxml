@@ -1,0 +1,94 @@
+<view class="page bg-gradient">
+  <!-- 视图切换 -->
+  <view class="seg">
+    <view class="seg-item {{view === 'add' ? 'active' : ''}}" data-v="add" bindtap="switchView">添加好友</view>
+    <view class="seg-item {{view === 'requests' ? 'active' : ''}}" data-v="requests" bindtap="switchView">好友申请</view>
+  </view>
+
+  <block wx:if="{{view === 'add'}}">
+    <!-- 插画 -->
+    <view class="hero">
+      <text class="h-island">🏝️</text>
+      <octopus size="120" color="#FF7E9D"></octopus>
+      <text class="h-icon">🔭</text>
+      <octopus size="120" color="#4FD1C5"></octopus>
+      <text class="h-island">🏝️</text>
+    </view>
+
+    <!-- 搜索 -->
+    <view class="search-card">
+      <input class="search-input" placeholder="搜索小岛号或手机号" value="{{q}}" bindinput="onQ" confirm-type="search" bindconfirm="search" />
+      <button class="search-btn" bindtap="search">搜索</button>
+    </view>
+
+    <!-- 搜索结果 -->
+    <view class="card user-card" wx:if="{{result}}">
+      <view class="u-avatar">{{result.nickname[0]}}</view>
+      <view class="u-info">
+        <view class="u-name">{{result.nickname}}</view>
+        <view class="muted">小岛号 {{result.uid}}</view>
+      </view>
+      <button class="add-btn" data-id="{{result.id}}" bindtap="sendRequest">＋ 加好友</button>
+    </view>
+
+    <!-- 我的名片 -->
+    <view class="card me-card" wx:if="{{me}}">
+      <view class="u-avatar big">🐙</view>
+      <view class="u-info">
+        <view class="u-name">{{me.nickname}}</view>
+        <view class="muted">小岛号 {{me.uid}}</view>
+      </view>
+    </view>
+
+    <!-- 四宫格动作 -->
+    <view class="card grid">
+      <button class="g g-btn" open-type="share">
+        <view class="g-icon">💬</view>
+        <view class="g-title">邀请微信好友</view>
+        <view class="g-desc">邀请好友加入小岛</view>
+      </button>
+      <view class="g" bindtap="copyLink">
+        <view class="g-icon">🔗</view>
+        <view class="g-title">复制邀请码</view>
+        <view class="g-desc">分享到微信或其他平台</view>
+      </view>
+      <view class="g" bindtap="myQr">
+        <view class="g-icon">📱</view>
+        <view class="g-title">我的二维码</view>
+        <view class="g-desc">让朋友扫码加我</view>
+      </view>
+      <view class="g" bindtap="scan">
+        <view class="g-icon">📷</view>
+        <view class="g-title">扫一扫</view>
+        <view class="g-desc">扫描朋友的小岛号</view>
+      </view>
+    </view>
+
+    <!-- 我的好友 -->
+    <view class="card" wx:if="{{friends.length}}">
+      <view class="subtitle">我的好友</view>
+      <view class="f-row" wx:for="{{friends}}" wx:key="id">
+        <view class="u-avatar">{{item.nickname[0]}}</view>
+        <view class="u-info">
+          <view class="u-name">{{item.nickname}}</view>
+          <view class="muted">小岛号 {{item.uid}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{view === 'requests'}}">
+    <view class="card req" wx:for="{{requests}}" wx:key="id">
+      <view class="u-avatar" wx:if="{{item.fromUser}}">{{item.fromUser.nickname[0]}}</view>
+      <view class="u-info">
+        <view class="u-name">{{item.fromUser.nickname}}</view>
+        <view class="muted">小岛号 {{item.fromUser.uid}}</view>
+      </view>
+      <view class="req-actions">
+        <button class="mini-btn ok" data-id="{{item.id}}" bindtap="accept">通过</button>
+        <button class="mini-btn no" data-id="{{item.id}}" bindtap="reject">拒绝</button>
+      </view>
+    </view>
+    <view wx:if="{{!requests.length}}" class="muted center">暂无好友申请</view>
+  </block>
+</view>
