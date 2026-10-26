@@ -5,3 +5,12 @@
 提供约会、餐厅、出行等建议； - 通过默契测试、话题盲盒、真心话大冒险等增强互动；
 让AI社宠的性格、装扮和“小岛”随两人的互动逐渐养成。  
 它定位是一个服务于既有亲密关系的 AI 关系伙伴，而不是传统社交软。
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Targeting couples, best friends or close buddies, it focuses on the private companion-style social mode of "two people + a small island + an AI social pet".
+Its core is not to help users meet strangers, but to make the AI a lightweight third member in the relationship between the two people, for example:
+Responding to conversations, breaking the ice and driving interactions in private group chats;
+Recording shared anniversaries, wishes, preferences and promises;
+Offering suggestions for dates, restaurants, trips and more;
+Enhancing interactions through tacit understanding tests, topic blind boxes, truth or dare and other gameplay;
+Allowing the AI social pet's personality, outfits and the "island" to gradually develop along with the interactions between the two people.
+It is positioned as an AI relationship partner that serves existing intimate relationships, rather than a traditional social app.
