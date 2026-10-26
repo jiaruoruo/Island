@@ -17,6 +17,7 @@ export interface Store {
   getUserById(id: string): Promise<User | null>;
   findUserByUid(uid: string): Promise<User | null>;
   createUser(u: User): Promise<User>;
+  updateUser(id: string, patch: Partial<User>): Promise<User | null>;
 
   // couples
   createCouple(c: Couple): Promise<Couple>;

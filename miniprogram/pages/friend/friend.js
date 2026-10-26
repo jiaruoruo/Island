@@ -10,6 +10,8 @@ Page({
     requests: [],
     friends: [],
     inviteCode: '',
+    showEdit: false,
+    editNickname: '',
   },
   onLoad() {
     this.loadMe();
@@ -55,6 +57,36 @@ Page({
       /* ignore */
     }
   },
+  openEdit() {
+    this.setData({
+      showEdit: true,
+      editNickname: this.data.me ? this.data.me.nickname : '',
+    });
+  },
+  onEditNick(e) {
+    this.setData({ editNickname: e.detail.value });
+  },
+  cancelEdit() {
+    this.setData({ showEdit: false });
+  },
+  noop() {},
+  async saveEdit() {
+    const nickname = this.data.editNickname.trim();
+    if (!nickname) {
+      wx.showToast({ title: '昵称不能为空', icon: 'none' });
+      return;
+    }
+    try {
+      const res = await request('/api/users/me', {
+        method: 'PUT',
+        data: { nickname },
+      });
+      this.setData({ me: res.user, showEdit: false });
+      wx.showToast({ title: '已保存', icon: 'success' });
+    } catch (err) {
+      wx.showToast({ title: (err && err.error) || '保存失败', icon: 'none' });
+    }
+  },
   switchView(e) {
     this.setData({ view: e.currentTarget.dataset.v });
   },
@@ -64,7 +96,7 @@ Page({
   async search() {
     const q = this.data.q.trim();
     if (!q) {
-      wx.showToast({ title: '请输入小岛号或手机号', icon: 'none' });
+      wx.showToast({ title: '请输入 Island号或手机号', icon: 'none' });
       return;
     }
     try {
@@ -119,7 +151,7 @@ Page({
       return;
     }
     wx.setClipboardData({
-      data: '【小岛】邀请你加入，邀请码/小岛号：' + code,
+      data: '【Island】邀请你加入，邀请码/Island号：' + code,
       success: () => wx.showToast({ title: '已复制', icon: 'success' }),
     });
   },
@@ -127,7 +159,7 @@ Page({
     const me = this.data.me;
     wx.showModal({
       title: '我的二维码',
-      content: '小岛号：' + (me ? me.uid : '-') + '\n\n让朋友在「添加好友」页搜索你的小岛号即可加你',
+      content: 'Island号：' + (me ? me.uid : '-') + '\n\n让朋友在「添加好友」页搜索你的 Island号即可加你',
       showCancel: false,
       confirmText: '知道了',
     });
@@ -149,8 +181,9 @@ Page({
   onShareAppMessage() {
     const code = this.data.inviteCode || (this.data.me && this.data.me.uid) || '';
     return {
-      title: '邀请你加入小岛，一起养一只 AI 小章鱼',
+      title: '邀请你加入 Island，一起养一只 AI 小章鱼 🐙',
       path: '/pages/welcome/welcome?invite=' + code,
+      imageUrl: '',
     };
   },
 });

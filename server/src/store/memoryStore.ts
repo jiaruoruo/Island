@@ -37,6 +37,12 @@ export class MemoryStore implements Store {
     }
     return null;
   }
+  async updateUser(id: string, patch: Partial<User>) {
+    const u = this.users.get(id);
+    if (!u) return null;
+    Object.assign(u, patch, { id });
+    return u;
+  }
   async createUser(u: User) {
     const user = { ...u, id: u.id || randomUUID() };
     this.users.set(user.id, user);

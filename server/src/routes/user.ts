@@ -8,6 +8,21 @@ userRouter.get('/me', async (req, res) => {
   res.json({ user: req.user });
 });
 
+// 编辑资料（更新昵称等）
+userRouter.put('/me', async (req, res) => {
+  const me = req.user!;
+  const { nickname } = (req.body || {}) as { nickname?: string };
+  if (nickname !== undefined) {
+    const n = String(nickname).trim();
+    if (!n || n.length > 20) {
+      return res.status(400).json({ error: '昵称长度需在 1-20 之间' });
+    }
+    const updated = await getStore().updateUser(me.id, { nickname: n });
+    return res.json({ user: updated });
+  }
+  res.json({ user: me });
+});
+
 // 搜索用户（小岛号 / 手机号）
 userRouter.get('/search', async (req, res) => {
   const me = req.user!;

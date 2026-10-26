@@ -76,6 +76,17 @@ export class PrismaStore implements Store {
     const u = await this.p.user.findUnique({ where: { uid } });
     return u ? this.userOut(u) : null;
   }
+  async updateUser(id: string, patch: Partial<User>) {
+    const data: { nickname?: string; minorMode?: boolean } = {};
+    if (patch.nickname !== undefined) data.nickname = patch.nickname;
+    if (patch.minorMode !== undefined) data.minorMode = patch.minorMode;
+    if (!Object.keys(data).length) {
+      const u = await this.p.user.findUnique({ where: { id } });
+      return u ? this.userOut(u) : null;
+    }
+    const updated = await this.p.user.update({ where: { id }, data });
+    return this.userOut(updated);
+  }
   async createUser(u: User) {
     const created = await this.p.user.create({
       data: {
