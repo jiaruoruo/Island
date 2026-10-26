@@ -40,20 +40,20 @@
   animation-delay: 1s;
 }
 .h-island {
-  font-size: 56rpx;
+  font-size: 96rpx;
   line-height: 1;
-  margin-top: -18rpx;
+  margin-top: -26rpx;
 }
 .h-icon {
   font-size: 40rpx;
 }
-/* 海水 */
+/* 海水：水面与小岛底部齐平，小岛完全露出水面 */
 .sea {
   position: relative;
   flex: 1;
-  height: 150rpx;
-  margin: 0 10rpx 6rpx;
-  border-radius: 28rpx;
+  height: 70rpx;
+  margin: 0 10rpx 0;
+  border-radius: 22rpx;
   overflow: hidden;
   background: linear-gradient(180deg, #8fe0f7 0%, #37b6e0 55%, #1f8fc4 100%);
   z-index: 1;
@@ -62,30 +62,69 @@
   position: absolute;
   left: -60%;
   width: 220%;
-  height: 280rpx;
+  height: 240rpx;
   border-radius: 43%;
   background: rgba(255, 255, 255, 0.3);
   animation: wave-rotate 9s linear infinite;
 }
 .wave.w1 {
-  top: 36rpx;
+  top: 12rpx;
 }
 .wave.w2 {
-  top: 54rpx;
+  top: 24rpx;
   background: rgba(255, 255, 255, 0.18);
   animation-duration: 6.5s;
   animation-direction: reverse;
 }
 .wave.w3 {
-  top: 72rpx;
+  top: 36rpx;
   background: rgba(79, 209, 197, 0.38);
   animation-duration: 13s;
+}
+/* 水面波纹：扩散涟漪 */
+.ripple {
+  position: absolute;
+  width: 56rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(255, 255, 255, 0.65);
+  opacity: 0;
+  z-index: 2;
+  animation: ripple-grow 3.6s ease-out infinite;
+}
+.ripple.r1 {
+  left: 14%;
+  top: 10rpx;
+  animation-delay: 0s;
+}
+.ripple.r2 {
+  left: 45%;
+  top: 26rpx;
+  animation-delay: 1.2s;
+}
+.ripple.r3 {
+  left: 73%;
+  top: 14rpx;
+  animation-delay: 2.4s;
+}
+@keyframes ripple-grow {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 .sea .h-icon {
   position: absolute;
   left: 0;
   right: 0;
-  top: 24rpx;
+  top: 12rpx;
   text-align: center;
   z-index: 3;
 }

@@ -17,6 +17,9 @@
         <view class="wave w1"></view>
         <view class="wave w2"></view>
         <view class="wave w3"></view>
+        <view class="ripple r1"></view>
+        <view class="ripple r2"></view>
+        <view class="ripple r3"></view>
         <text class="h-icon">🔭</text>
       </view>
 
