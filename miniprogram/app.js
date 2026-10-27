@@ -32,6 +32,15 @@ App({
   },
 
   onLaunch() {
+    // 云开发初始化：必须在任何 wx.cloud 调用前完成，且不能被环境判断逻辑影响
+    if (this.globalData.cloudEnv && wx.cloud) {
+      try {
+        wx.cloud.init({ env: this.globalData.cloudEnv, traceUser: true });
+        console.log('[app] cloud inited, env=', this.globalData.cloudEnv);
+      } catch (e) {
+        console.error('[app] cloud init fail', e);
+      }
+    }
     try {
       const env = wx.getAccountInfoSync().miniProgram.envVersion;
       const isDevtools = this.isDevtools();
@@ -59,9 +68,6 @@ App({
         this.globalData.wsBase = PROD_BASE.replace(/^https/, 'wss');
       }
 
-      if (this.globalData.cloudEnv && wx.cloud) {
-        wx.cloud.init({ env: this.globalData.cloudEnv, traceUser: true });
-      }
       // 诊断日志：确认走的哪条链路
       console.log('[app] env=', env, 'devtools=', isDevtools, 'useCloud=', this.globalData.useCloud,
         'wx.cloud=', !!wx.cloud, 'cloudEnv=', this.globalData.cloudEnv, 'service=', this.globalData.serviceName,
