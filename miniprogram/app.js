@@ -3,7 +3,7 @@ App({
     // ===== 微信云托管配置 =====
     cloudEnv: 'prod-d6g2qc4i821472162', // 云托管环境 ID
     serviceName: 'island-server', // ← 云托管服务名（部署时保持一致）
-    forceCloud: false, // 设为 true 可强制所有环境（含真机调试）走云托管
+    forceCloud: true, // true = 所有环境（含真机调试、模拟器）都走云托管
     useCloud: false, // 运行时自动判定
 
     // 本地 / 自托管地址（develop 环境或不走云托管时使用）
