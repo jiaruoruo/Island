@@ -35,19 +35,24 @@ function request(path, options = {}) {
   };
 
   // 云托管：wx.cloud.callContainer（无需域名、无需 ICP 备案）
-  // 注意限制：超时 ≤15s，请求体 ≤100K
+  // 关键：必须用 header 的 X-WX-SERVICE 指定服务名，否则网关无法路由
+  // 限制：超时 ≤15s，请求体 ≤100K
   if (g.useCloud && wx.cloud && wx.cloud.callContainer) {
+    const cloudHeader = Object.assign({}, header, {
+      'X-WX-SERVICE': g.serviceName,
+    });
     return new Promise((resolve, reject) => {
       wx.cloud.callContainer({
         config: { env: g.cloudEnv },
         path,
         method: options.method || 'GET',
-        header,
+        header: cloudHeader,
         data: options.data || {},
         success(res) {
           finish(res.statusCode, res.data, resolve, reject);
         },
         fail(err) {
+          console.warn('[request] callContainer fail:', path, err);
           reject(err);
         },
       });
