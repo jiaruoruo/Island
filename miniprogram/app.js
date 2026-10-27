@@ -62,6 +62,10 @@ App({
       if (this.globalData.cloudEnv && wx.cloud) {
         wx.cloud.init({ env: this.globalData.cloudEnv, traceUser: true });
       }
+      // 诊断日志：确认走的哪条链路
+      console.log('[app] env=', env, 'devtools=', isDevtools, 'useCloud=', this.globalData.useCloud,
+        'wx.cloud=', !!wx.cloud, 'cloudEnv=', this.globalData.cloudEnv, 'service=', this.globalData.serviceName,
+        'baseUrl=', this.globalData.baseUrl);
     } catch (e) {
       // 取不到环境信息时保持默认值
     }

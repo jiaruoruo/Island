@@ -1,6 +1,12 @@
 const { request } = require('../../utils/request');
 const app = getApp();
 
+// 统一提取错误信息（wx 失败对象只有 errMsg，后端错误在 error 里）
+function errMsg(e, fallback) {
+  const m = e && (e.error || e.errMsg || (e.data && e.data.error));
+  return m ? String(m).slice(0, 60) : fallback;
+}
+
 function wxLogin() {
   return new Promise((resolve) => {
     wx.login({ success: resolve, fail: () => resolve({}) });
@@ -67,7 +73,8 @@ Page({
       });
       this.onLoginSuccess(res);
     } catch (e) {
-      wx.showToast({ title: (e && e.error) || '登录失败', icon: 'none' });
+      console.error('[login]', e);
+      wx.showToast({ title: errMsg(e, '登录失败'), icon: 'none' });
     } finally {
       this.setData({ logging: false });
     }
@@ -106,7 +113,8 @@ Page({
         }
       }, 1000);
     } catch (e) {
-      wx.showToast({ title: (e && e.error) || '发送失败', icon: 'none' });
+      console.error('[sendCode]', e);
+      wx.showToast({ title: errMsg(e, '发送失败'), icon: 'none' });
     }
   },
 
@@ -127,7 +135,8 @@ Page({
       });
       this.onLoginSuccess(res);
     } catch (e) {
-      wx.showToast({ title: (e && e.error) || '登录失败', icon: 'none' });
+      console.error('[login]', e);
+      wx.showToast({ title: errMsg(e, '登录失败'), icon: 'none' });
     } finally {
       this.setData({ logging: false });
     }

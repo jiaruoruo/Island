@@ -70,6 +70,7 @@ function request(path, options = {}) {
         finish(res.statusCode, res.data, resolve, reject);
       },
       fail(err) {
+        console.warn('[request] wx.request fail:', g.baseUrl + path, err);
         reject(err);
       },
     });
