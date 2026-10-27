@@ -22,6 +22,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 根路径：云托管存活/就绪探针可能探测 /，需返回 200
+app.get('/', (_req, res) => {
+  res.json({ ok: true, service: 'island-server' });
+});
+
 // 健康检查
 app.get('/api/health', (_req, res) => {
   res.json({

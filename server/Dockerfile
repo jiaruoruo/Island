@@ -11,9 +11,9 @@ RUN npm install
 COPY . .
 RUN npx prisma generate && npm run build
 
-# 云托管会自动注入 PORT；本地默认 3000
-ENV PORT=3000
-EXPOSE 3000
+# 云托管存活/就绪探针默认访问 8080，容器必须监听该端口
+ENV PORT=8080
+EXPOSE 8080
 
 # STORE=prisma 时自动执行数据库迁移（失败不阻断启动，便于先起服务排查）
 # 需要持久化请设置环境变量：STORE=prisma、DATABASE_URL=...
